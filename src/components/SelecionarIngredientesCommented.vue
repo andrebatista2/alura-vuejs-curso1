@@ -4,6 +4,7 @@
     <p class="paragraph-lg instructions">Selecione abaixo os ingredientes que deverão ser usados na receita</p>
 
     <ul class="categories">
+      <!-- O :key indica que cada elemento a ser repetido no v-for tem um identificador único -->
       <li v-for="option in options" :key="option.nome">
         {{ option.nome }}
       </li>
@@ -63,9 +64,10 @@ export default {
   */
   data() {
     return {
-      options: [] as ICategories[]
+      options: [] as ICategories[] // Cria um array do mesmo tipo do dado informado no created(), para evitar problemas com o TS
     }
   },
+
   /*
     O beforeCreate é executado imediatamente assim que um componente é inicializado. Nesse momento, estados e
     propriedades computadas ainda não foram processadas.
@@ -73,6 +75,7 @@ export default {
   beforeCreate() {
     alert('Sou executado no momento da inicialização do componente. Ideal para checar, por exemplo, se um usuário está autenticado')
   },
+
   /*
     O created é executado antes do componente ser montado no DOM, porém, nessa etapa todos os estados,
     propriedades computadas, métodos e watchers já foram processados e estão prontos para serem acessados.
@@ -83,8 +86,10 @@ export default {
     Ele é acessado depois de data() ter sido definido, podendo acessa-las e modifica-las
   */
   async created() {
+    // Como em todos os bons JS da vida, o this permite que o contexto acima da função seja acessado, ou seja, que se tenha acesso ao data
     this.options = await getCategories();
   },
+
   /*
     O mounted é executado imediatamente após o componente ser montado. Nesse estágio, o componente se
     torna funcional: as propriedades de data() são injetadas no template, os elementos são renderizados
