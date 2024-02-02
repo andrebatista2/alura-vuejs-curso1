@@ -5,7 +5,8 @@
 
     <ul class="categories">
       <li v-for="option in options" :key="option.nome">
-        {{ option.nome }}
+          <!-- Usa-se o v-bind para passar o valor do objeto para a props do componente -->
+        <CardCategoria :option="option" @add-ingredient="$emit('addIngredient', $event)"/>
       </li>
     </ul>
 
@@ -56,8 +57,10 @@
 <script lang="ts">
 import { getCategories } from "@/http";
 import type ICategories from "@/interfaces/ICategories";
+import CardCategoria from "@/components/CardCategoria.vue";
 
 export default {
+    components: {CardCategoria},
   data() {
     return {
       options: [] as ICategories[]
@@ -66,5 +69,6 @@ export default {
   async created() {
     this.options = await getCategories();
   },
+    emits: ['addIngredient']
 }
 </script>
