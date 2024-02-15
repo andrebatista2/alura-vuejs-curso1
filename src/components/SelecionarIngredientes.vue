@@ -6,13 +6,15 @@
     <ul class="categories">
       <li v-for="option in options" :key="option.nome">
           <!-- Usa-se o v-bind para passar o valor do objeto para a props do componente -->
-        <CardCategoria :option="option" @add-ingredient="$emit('addIngredient', $event)"/>
+        <CardCategoria :option="option" @add-ingredient="$emit('addIngredient', $event)" @remove-ingredient="$emit('removeIngredient', $event)"/>
       </li>
     </ul>
 
     <p class="paragraph tip">
       * Atenção: consideramos que você tenha em casa, sal, pimenta e água
     </p>
+
+      <BotaoPrincipal text="Buscar Receitas" />
   </section>
 </template>
 
@@ -58,9 +60,10 @@
 import { getCategories } from "@/http";
 import type ICategories from "@/interfaces/ICategories";
 import CardCategoria from "@/components/CardCategoria.vue";
+import BotaoPrincipal from "@/components/BotaoPrincipal.vue";
 
 export default {
-    components: {CardCategoria},
+    components: {BotaoPrincipal, CardCategoria},
   data() {
     return {
       options: [] as ICategories[]
@@ -69,6 +72,6 @@ export default {
   async created() {
     this.options = await getCategories();
   },
-    emits: ['addIngredient']
+    emits: ['addIngredient', 'removeIngredient']
 }
 </script>

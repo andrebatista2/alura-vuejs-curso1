@@ -17,10 +17,12 @@ export default {
             if (this.selected) {
                 // Emite um evento para o componente pai
                 this.$emit('addIngredient', this.ingredient)
+            } else {
+                this.$emit('removeIngredient', this.ingredient)
             }
         }
     },
-    emits: ['addIngredient'] // Boa prática do TS para garantir que o evento será do mesmo jeito que no this.$emit
+    emits: ['addIngredient', 'removeIngredient'] // Boa prática do TS para garantir que o evento será do mesmo jeito que no this.$emit
 }
 
 </script>

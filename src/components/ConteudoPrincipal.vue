@@ -25,7 +25,7 @@
 
         </section> -->
         <SuaLista :ingredients="ingredients"/>
-        <SelecionarIngredientes @add-ingredient="addIngredient" />
+        <SelecionarIngredientes @add-ingredient="addIngredient" @remove-ingredient="removeIngredient"/>
     </main>
 </template>
 
@@ -73,6 +73,9 @@ export default {
     methods: {
         addIngredient(ingredient: string) {
             this.ingredients.push(ingredient)
+        },
+        removeIngredient(ingredient: string) {
+            this.ingredients = this.ingredients.filter(iList => ingredient !== iList);
         }
     }
 }

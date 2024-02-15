@@ -12,7 +12,7 @@
             // O PropType informa qual é o tipo específico do Objeto que está sendo informado
             option: { type: Object as PropType<ICategories>, required: true, },
         },
-        emits: ['addIngredient'],
+        emits: ['addIngredient', 'removeIngredient'],
     }
 </script>
 
@@ -27,7 +27,7 @@
         <ul class="category__ingredients">
             <li v-for="ingredient in option.ingredientes" :key="ingredient">
                 <!-- $event - conteúdo que está sendo carregado no momento dentro do evento -->
-                <IngredienteSelecionavel :ingredient="ingredient" @add-ingredient="$emit('addIngredient', $event)" />
+                <IngredienteSelecionavel :ingredient="ingredient" @add-ingredient="$emit('addIngredient', $event)" @remove-ingredient="$emit('removeIngredient', $event)" />
             </li>
         </ul>
     </article>
