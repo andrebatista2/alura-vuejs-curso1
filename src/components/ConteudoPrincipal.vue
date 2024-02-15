@@ -62,21 +62,41 @@
 import SelecionarIngredientes from "@/components/SelecionarIngredientes.vue";
 import Tag from "@/components/Tag.vue";
 import SuaLista from "@/components/SuaLista.vue";
+import { ref } from "vue";
 
 export default {
-    components: {Tag, SelecionarIngredientes, SuaLista},
-    data() {
+    // ! Uso do Composition API (Vue 3, Vue 2.7) - Components continua declarado externamente, como acima
+    setup() {
+        const ingredients = ref<string[]>([]);
+
+        function addIngredient(ingredient: string) {
+            ingredients.value.push(ingredient);
+        }
+
+        function removeIngredient(ingredient: string) {
+            ingredients.value = ingredients.value.filter(iList => ingredient !== iList);
+        }
+
         return {
-            ingredients: [] as string[],
+            ingredients,
+            addIngredient,
+            removeIngredient,
         }
     },
-    methods: {
-        addIngredient(ingredient: string) {
-            this.ingredients.push(ingredient)
-        },
-        removeIngredient(ingredient: string) {
-            this.ingredients = this.ingredients.filter(iList => ingredient !== iList);
-        }
-    }
+    components: {Tag, SelecionarIngredientes, SuaLista},
+    // ! Uso do Options API (Vue 3.x, Vue 2.x, Vue 1.x)
+    // data() {
+    //     return {
+    //         ingredients: [] as string[],
+    //     }
+    // },
+    // methods: {
+    //     addIngredient(ingredient: string) {
+    //         this.ingredients.push(ingredient)
+    //     },
+    //     removeIngredient(ingredient: string) {
+    //         this.ingredients = this.ingredients.filter(iList => ingredient !== iList);
+    //     }
+    // }
 }
 </script>
